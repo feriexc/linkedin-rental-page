@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rix's LinkedIn Access</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- RESET & NEON CANDY DARK THEME VARIABLES --- */
+        :root {
+            --dark-bg: #09090b;
+            /* Warna latar sangat gelap */
+            --glass-bg: rgba(20, 20, 25, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+
+            /* Neon Candy Colors (Nyala di Dark Mode) */
+            --neon-pink: #ff79c6;
+            --neon-blue: #8be9fd;
+            --neon-yellow: #eaff00;
+            --neon-green: #50fa7b;
+            --neon-purple: #bd93f9;
+
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+
+            /* ... kode sebelumnya ... */
+
+            /* Anti-Select Teks (Tidak bisa diblok biru) */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px 0 40px 0;
+        }
+
+        /* Teks Deskripsi Futuristik */
+        /* Kita panggil secara spesifik agar tidak tertimpa style lain */
+        /* --- Teks Deskripsi Futuristik (Aurora Liquid Text) --- */
+        p.sub-header {
+            font-weight: 800 !important;
+            line-height: 1.6 !important;
+            font-size: 15px !important;
+            text-align: center !important;
+            margin-top: 12px !important;
+            letter-spacing: 0.5px !important;
+
+            /* Setup Animasi Gradasi (Penting: Tanpa !important di bagian background) */
+            background: linear-gradient(90deg, #0A84FF, #00C9FF, #FF00CC, #FF9F0A, #0A84FF);
+            background-size: 300% 100%;
+
+            /* Memotong warna agar hanya masuk ke huruf */
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            /* Menghilangkan warna putih bawaan teks */
+            color: transparent !important;
+            -webkit-text-fill-color: transparent !important;
+
+            /* Menjalankan Animasi */
+            animation: liquidFlow 4s linear infinite !important;
+        }
+
+        /* Pastikan span highlight-candy tidak merusak bayangan teks utama */
+        /* Pastikan span highlight-candy tidak merusak bayangan teks utama */
+        .highlight-candy {
+            /* 1. Paksa teks kembali menjadi warna hitam pekat */
+            color: #000 !important;
+            -webkit-text-fill-color: #000 !important;
+
+            /* 2. Matikan efek background-clip dari parent agar kuningnya mengisi kotak, bukan huruf */
+            -webkit-background-clip: border-box !important;
+            background-clip: border-box !important;
+
+            font-weight: 900;
+            font-size: 15px;
+            background: var(--neon-yellow) !important;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 6px;
+            box-shadow: 0 0 15px rgba(241, 250, 140, 0.6);
+            /* Glow disesuaikan jadi kuning */
+            text-shadow: none !important;
+            letter-spacing: normal !important;
+        }
+
+        /* --- BACKGROUND FLOATING BLOBS (NEON VIBE) --- */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            z-index: -1;
+            opacity: 0.25;
+            /* Opacity diturunkan agar text tetap jelas */
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 250px;
+            height: 250px;
+            background: var(--neon-pink);
+            top: 5%;
+            left: -50px;
+        }
+
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--neon-blue);
+            bottom: 10%;
+            right: -30px;
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .glass-container {
+            width: 92%;
+            max-width: 420px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+
+            /* Ganti border agar sedikit keunguan/pink sesuai tema glow */
+            border: 2px solid rgba(255, 121, 198, 0.3);
+            border-radius: 40px;
+            padding: 35px 25px;
+            text-align: center;
+
+            /* EFEK GLOW PINK: 
+       1. Bayangan gelap dasar (untuk depth)
+       2. Glow pink luar (tipis)
+       3. Glow pink luar (lebar/blur besar) 
+    */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(255, 121, 198, 0.2),
+                0 0 40px rgba(255, 121, 198, 0.1);
+
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                glowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 121, 198, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 121, 198, 0.4);
+            }
+        }
+
+        /* --- HEADER --- */
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .logo-icon {
+            font-size: 45px;
+            color: var(--neon-blue);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px rgba(139, 233, 253, 0.4));
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 0 10px;
+        }
+
+        .highlight-candy {
+            color: #000;
+            /* Hitam agar kontras di neon */
+            font-weight: 900;
+            font-size: 15px;
+            background: var(--neon-yellow);
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 6px;
+            box-shadow: 0 0 15px rgba(255, 121, 198, 0.4);
+        }
+
+        /* --- SECTION TITLES --- */
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff79c6;
+            margin-bottom: 12px;
+            font-weight: 800;
+            text-align: left;
+            padding-left: 10px;
+            margin-top: 25px;
+        }
+
+        /* --- PROMO IMAGE (FLEKSIBEL) --- */
+        .promo-image-container {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            position: relative;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            /* Aspect ratio dihapus agar fleksibel */
+            background: #111;
+            /* Background placeholder saat gambar belum load */
+        }
+
+        /* Height dibuat auto agar container mengikuti proporsi gambar */
+        .promo-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .info-text {
+            text-align: left;
+            font-size: 13px;
+            /* Ditingkatkan ke 600 agar teks terlihat lebih mantap dan tidak tipis */
+            font-weight: 600;
+            /* Putih murni 100% untuk kontras maksimal */
+            color: #ffffff;
+            margin-bottom: 15px;
+            padding: 0 5px;
+            /* Spasi antar baris sedikit ditambah agar lebih nyaman dibaca */
+            line-height: 1.6;
+            /* Opsional: Tambahkan sedikit bayangan halus agar teks lebih "keluar" */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- CARD LIST SYSTEM (DARK BUBBLE 3D EFFECT) --- */
+        .content-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .card-item {
+            background: var(--card-bg);
+            /* Border ditingkatkan menjadi 2px dan opasitas hampir penuh agar tegas */
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            /* Box-shadow dengan 3 lapisan: bayangan gelap, glow putih luar, dan glow halus di dalam */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
+                0 0 15px rgba(255, 255, 255, 0.4),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+
+            transition: all 0.3s ease;
+        }
+
+        .card-item:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            /* Bulat sempurna */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Ikon pakai warna background agar pop-out di neon */
+        .icon-box i {
+            font-size: 16px;
+            color: var(--dark-bg);
+            font-weight: 900;
+        }
+
+        /* Neon Colors */
+        .bg-pink {
+            background: var(--neon-pink);
+            box-shadow: 0 0 12px rgba(255, 121, 198, 0.3);
+        }
+
+        .bg-blue {
+            background: var(--neon-blue);
+            box-shadow: 0 0 12px rgba(139, 233, 253, 0.3);
+        }
+
+        .bg-yellow {
+            background: var(--neon-yellow);
+            box-shadow: 0 0 12px rgba(241, 250, 140, 0.3);
+        }
+
+        .bg-green {
+            background: var(--neon-green);
+            box-shadow: 0 0 12px rgba(80, 250, 123, 0.3);
+        }
+
+        .bg-purple {
+            background: var(--neon-purple);
+            box-shadow: 0 0 12px rgba(189, 147, 249, 0.3);
+        }
+
+        .text-content {
+            font-size: 13px;
+            color: #e4e4e7;
+            line-height: 1.4;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .text-content b {
+            color: #fff;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .sub-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 3px;
+            font-weight: 500;
+        }
+
+        .flex-row-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .referral-price {
+            background: rgba(255, 121, 198, 0.15);
+            color: var(--neon-pink);
+            border: 1px solid rgba(255, 121, 198, 0.3);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .special-gold {
+            border-color: rgba(241, 250, 140, 0.3);
+            background: rgba(241, 250, 140, 0.03);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 -3px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .special-gold b {
+            color: var(--neon-yellow);
+        }
+
+        /* --- COUNTDOWN STYLE (DARK BUBBLE BOXES) --- */
+        .countdown-wrapper {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(139, 233, 253, 0.03);
+            border: 1px solid rgba(139, 233, 253, 0.15);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .countdown-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--neon-blue);
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .timer-row {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .time-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 8px 0;
+            flex: 1;
+            max-width: 65px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 -2px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .time-num {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--neon-blue);
+            line-height: 1.2;
+        }
+
+        .time-unit {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 2px;
+            font-weight: 700;
+        }
+
+        .colon {
+            font-size: 18px;
+            font-weight: 800;
+            color: #52525b;
+            margin-top: -12px;
+        }
+
+        /* --- ANIMASI BERDENYUT (PULSE) UNTUK SELURUH BOX --- */
+        @keyframes alertPulseFull {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            50% {
+                transform: scale(1.03);
+                /* Seluruh box membesar tipis agar tidak pecah */
+                box-shadow: 0 0 20px rgba(255, 85, 85, 0.3);
+                /* Pendaran merah pada border box */
+                background: rgba(255, 85, 85, 0.15);
+                /* Warna merah sedikit lebih terang saat berdenyut */
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .alert-box {
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            color: #ffb8b8;
+            gap: 12px;
+
+            /* Menerapkan animasi ke seluruh box, teks, dan ikon di dalamnya */
+            animation: alertPulseFull 2s ease-in-out infinite;
+        }
+
+        .alert-box i {
+            margin-right: 0;
+            font-size: 24px;
+            color: #ff5555;
+            /* Ikon tidak perlu animasi sendiri lagi karena sudah ikut box utama */
+        }
+
+        .alert-text {
+            font-size: 13px;
+            line-height: 1.6;
+            font-weight: 600;
+            /* Dibuat sedikit lebih tebal agar tetap terbaca saat berdenyut */
+            color: #ffffff;
+            /* Putih agar lebih kontras di atas box merah */
+        }
+
+        .alert-box i {
+            margin-right: 12px;
+            font-size: 18px;
+            margin-top: 2px;
+            color: #ff5555;
+        }
+
+        .alert-text {
+            font-size: 12px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .alert-text b {
+            color: #fff;
+            font-weight: 800;
+        }
+
+        /* --- BUTTON (NEON GLOW) --- */
+        .btn-container {
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .cta-btn {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 18px;
+            border-radius: 30px;
+            border: none;
+
+            /* Background Gradasi Aurora (Persis seperti referensi) */
+            background: linear-gradient(90deg, #00C9FF, #92FE9D, #FF00CC, #00C9FF);
+            background-size: 300% 100%;
+
+            color: #fff;
+            /* Teks putih agar elegan */
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+
+            /* Efek pendaran cahaya (Glow) */
+            box-shadow: 0 0 25px rgba(0, 201, 255, 0.6);
+
+            /* Menjalankan Animasi Flow & Melayang secara bersamaan */
+            animation: liquidFlow 4s ease-in-out infinite, floatUp 4s ease-in-out infinite;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cta-btn:active {
+            /* Sedikit mengecil saat ditekan */
+            transform: scale(0.95);
+            filter: brightness(0.8);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #52525b;
+            font-weight: 600;
+            padding-bottom: 10px;
+        }
+
+        /* Mobile Specific Adjustment */
+        @media screen and (max-width: 380px) {
+            .glass-container {
+                padding: 30px 15px;
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 21px;
+            }
+
+            .card-item {
+                padding: 12px;
+            }
+
+            .icon-box {
+                margin-right: 10px;
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        /* --- TAMBAHAN CSS UNTUK CARA KERJA PROGRESIF --- */
+
+        /* Memastikan ikon angka terlihat tebal */
+        .icon-box i.fas {
+            font-weight: 900 !important;
+        }
+
+        /* GAYA WARNA BIRU (Card 1 - Start) */
+        .card-item.special-blue {
+            border-color: #00ddd0;
+            /* Biru Cyan cerah */
+            box-shadow: 0 0 15px rgba(0, 221, 208, 0.2) inset, 0 0 5px rgba(0, 221, 208, 0.4);
+            /* Efek glow biru */
+        }
+
+        .icon-box.bg-blue {
+            background: linear-gradient(135deg, #00ddd0, #0099ff);
+            /* Gradasi biru */
+            color: #000;
+            /* Warna angka di dalamnya hitam agar kontras */
+            box-shadow: 0 0 10px rgba(0, 221, 208, 0.5);
+        }
+
+        /* GAYA WARNA HIJAU NEON (Card 3 - Finish/Cuan) */
+        .card-item.special-green {
+            border-color: #39ff14;
+            /* Hijau Neon menyala */
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2) inset, 0 0 5px rgba(57, 255, 20, 0.4);
+            /* Efek glow hijau */
+        }
+
+        .icon-box.bg-green {
+            background: linear-gradient(135deg, #39ff14, #00ff99);
+            /* Gradasi hijau */
+            color: #000;
+            /* Warna angka di dalamnya hitam agar kontras */
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+        }
+
+        /* Styling untuk memastikan angka terlihat besar, tebal, dan pas di tengah lingkaran */
+        .step-number {
+            font-size: 1.5rem;
+            /* Ukuran angka, bisa dibesarkan jadi 1.8rem kalau kurang besar */
+            font-weight: 900;
+            font-family: Arial, sans-serif;
+            line-height: 1;
+        }
+
+        /* --- PERBAIKAN WARNA ANGKA 2 --- */
+        /* Mengubah warna angka di dalam lingkaran kuning menjadi hitam */
+        .card-item.special-gold .icon-box .step-number {
+            color: #000000 !important;
+            /* Warna hitam pekat */
+        }
+
+        /* Styling Pop-up */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            /* Diubah menjadi hitam pekat solid */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup-content {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+        }
+
+        .popup-content h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+        }
+
+        .popup-content p {
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .small-text {
+            font-size: 0.8rem !important;
+            margin-top: 10px;
+            color: #bbb !important;
+        }
+
+        .small-text a {
+            color: #00d2ff;
+            text-decoration: none;
+        }
+
+        .popup-buttons {
+            display: flex;
+            flex-direction: column;
+            /* Mengubah arah sejajar menjadi atas-bawah */
+            gap: 12px;
+            /* Memberi jarak antar tombol */
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .cta-btn-popup {
+            flex: 2;
+            /* Terapkan Gradasi Biru-Putih yang sama dengan tombol Welcome */
+            background: linear-gradient(110deg, #0A84FF 30%, #ffffff 45%, #0A84FF 60%);
+            background-size: 250% 100%;
+            /* Panggil animasi berjalannya */
+            animation: shineMove 3.5s linear infinite;
+
+            color: #fff !important;
+            font-weight: 800;
+            /* Ditebalkan agar lebih tegas */
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+
+            /* Tambahkan pendaran cahaya (Glow) biru */
+            box-shadow: 0 0 15px rgba(10, 132, 255, 0.4);
+            transition: transform 0.2s;
+        }
+
+        /* Efek ditekan */
+        .cta-btn-popup:active {
+            transform: scale(0.95);
+        }
+
+        /* --- ANIMASI AURORA & MELAYANG --- */
+        @keyframes floatUp {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes liquidFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ================= WELCOME PAGE CSS ================= */
+        #welcomeOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #05050A;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.5s ease-out;
+        }
+
+        #welcomeContent {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            text-shadow: 0 0 30px rgba(10, 132, 255, 0.5);
+        }
+
+        .welcome-sub {
+            font-size: 1rem;
+            color: rgba(235, 235, 245, 0.6);
+            /* Warna abu-abu elegan bawaan aslinya */
+            margin-bottom: 40px;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        /* --- Blue Running White Animation --- */
+        @keyframes shineMove {
+            0% {
+                background-position: 200% center;
+            }
+
+            100% {
+                background-position: -200% center;
+            }
+        }
+
+        .btn-blue-running {
+            background: linear-gradient(110deg, #0A84FF 30%, #ffffff 45%, #0A84FF 60%);
+            background-size: 250% 100%;
+            animation: shineMove 3.5s linear infinite;
+            color: #fff !important;
+            border: none !important;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(10, 132, 255, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        /* Animasi Fade In untuk perpindahan halaman */
+        .fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= END WELCOME PAGE CSS ================= */
+
+        /* --- CSS Tombol Silang (Close Pop-up) --- */
+        .close-popup-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            /* Warna abu-abu agar tidak terlalu mencolok */
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .close-popup-btn:hover {
+            color: #ffffff;
+            /* Berubah jadi putih menyala saat disentuh/di-hover */
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .close-popup-btn:active {
+            transform: scale(0.9);
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <noscript>
+        <style>
+            /* Menyembunyikan seluruh konten asli jika JS dimatikan */
+            #welcomeOverlay,
+            .glass-container,
+            .orb,
+            #wa-popup {
+                display: none !important;
+            }
+
+            /* Mengunci background menjadi hitam total */
+            body {
+                background-color: #000000 !important;
+                overflow: hidden !important;
+            }
+        </style>
+
+        <div
+            style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 9999999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; text-align: center; padding: 20px;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff5555; margin-bottom: 20px;"></i>
+            <h2 style="font-weight: 900; font-size: 24px; margin-bottom: 10px;">AKSES DITOLAK</h2>
+            <p style="color: #a1a1aa; font-weight: 500; line-height: 1.6;">
+                Sistem keamanan kami mendeteksi bahwa JavaScript di browser ini dimatikan.<br>
+                Silakan aktifkan pengaturan JavaScript untuk mengakses halaman ini.
+            </p>
+        </div>
+    </noscript>
+
+    <div id="welcomeOverlay">
+
+        <img id="welcomeImg" src="./RENT LINKEDIN BY ZEN_files/baner.gif" onerror="this.style.display='none'"
+            style="width: 90%; max-width: 350px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+
+        <div id="welcomeContent">
+            <div class="welcome-title">RENT LINKEDIN</div>
+            <div class="welcome-sub">Platform sewa akun LinkedIn <br> aman &amp; terpercaya by <b>Rix</b> x Zen</div>
+
+            <button onclick="enterApp()" class="btn-blue-running"
+                style="width: auto; padding: 16px 40px !important; border-radius: 50px; margin: 0 auto;">
+                LANJUTKAN <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-left: 8px;">
+                    <path d="M13 17l5-5-5-5M6 17l5-5-5-5"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="glass-container" style="display: none;">
+        <div class="header">
+            <i class="fab fa-linkedin logo-icon"></i>
+            <h1>Rix's Linkedin Access</h1>
+            <p class="sub-header">
+                Ubah Akun LinkedIn Nganggur Kamu Jadi Passive Income Rutin Mingguan!
+                <br><span class="highlight-candy">190rb / minggu</span>
+            </p>
+        </div>
+
+        <div class="info-section">
+            <div class="section-title">Untuk Apa Akun Kamu Dipakai?</div>
+            <p class="info-text">
+                Akunmu akan di-<i>makeover</i> sementara oleh <i>client</i> dari US untuk kebutuhan <i>push
+                    marketing</i> & <i>engagement profesional</i> perusahaan global. 100% aman, data asli tidak diekspos
+                ke publik.
+            </p>
+            <div class="promo-image-container">
+                <picture>
+                    <source srcset="https://syaratketentuanbyzen.vercel.app/promosi.webp" type="image/webp">
+                    <source srcset="https://syaratketentuanbyzen.vercel.app/promosi.png" type="image/png">
+                    <source srcset="https://syaratketentuanbyzen.vercel.app/promosi.jpg" type="image/jpeg">
+                    <img src="https://syaratketentuanbyzen.vercel.app/promosi.webp" alt="Ilustrasi Promosi"
+                        class="promo-image">
+                </picture>
+            </div>
+        </div>
+
+        <div class="section-title">Kriteria Akun Wajib</div>
+        <div class="content-box">
+            <div class="card-item">
+                <div class="icon-box bg-purple"><i class="fas fa-calendar-check"></i></div>
+                <div class="text-content">Usia Akun Minimal 1 Tahun <br>
+                    <span class="sub-text">(Tahun pembuatan 2024 ke bawah).</span>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="icon-box bg-blue"><i class="fas fa-users"></i></div>
+                <div class="text-content">Punya Koneksi Minimal 30 <br>
+                    <span class="sub-text">(Belum mencapai 30 koneksi? Tenang, nanti akan difasilitasi)</span>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="icon-box bg-pink"><i class="fas fa-ban"></i></div>
+                <div class="text-content">Dilarang Keras Pakai Akun Beli / Tuyulan</div>
+            </div>
+            <div class="card-item">
+                <div class="icon-box bg-yellow"><i class="fas fa-flag"></i></div>
+                <div class="text-content">Wajib Akun Indonesia</div>
+            </div>
+        </div>
+
+        <div class="section-title">Detail Rate Sewa</div>
+        <div class="content-box">
+            <div class="card-item">
+                <div class="icon-box bg-blue"><i class="fas fa-tag"></i></div>
+                <div class="text-content">Akun normal <b>190rb</b> / minggu</div>
+            </div>
+            <div class="card-item">
+                <div class="icon-box bg-green"><i class="fas fa-wrench"></i></div>
+                <div class="text-content">Bonus pemulihan akun <b>+80rb</b></div>
+            </div>
+        </div>
+
+        <div class="section-title">Cara Kerja:</div>
+        <div class="content-box">
+            <div class="card-item special-blue">
+                <div class="icon-box bg-blue">
+                    <span class="step-number">1</span>
+                </div>
+                <div class="text-content">
+                    <b>Gabung & Seleksi</b>
+                    <span class="sub-text">Masuk ke grup WhatsApp dan kirim profil LinkedIn Kamu untuk pengecekan
+                        awal.</span>
+                </div>
+            </div>
+
+            <div class="card-item special-gold">
+                <div class="icon-box bg-yellow">
+                    <span class="step-number">2</span>
+                </div>
+                <div class="text-content">
+                    <b>Penyerahan Akun</b>
+                    <span class="sub-text">Jika lolos kriteria, Kamu cukup menyerahkan akses sementara. Biarkan sistem
+                        klien yang bekerja.</span>
+                </div>
+            </div>
+
+            <div class="card-item special-green">
+                <div class="icon-box bg-green">
+                    <span class="step-number">3</span>
+                </div>
+                <div class="text-content">
+                    <b>Terima Hasil</b>
+                    <span class="sub-text">Duduk manis dan tunggu pencairan dana setiap hari Minggu!</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Jadwal &amp; Sistem</div>
+        <div class="content-box">
+            <div class="card-item" style="flex-direction: column; align-items: flex-start;">
+                <div style="display: flex; align-items: center; width: 100%;">
+                    <div class="icon-box bg-blue"><i class="fas fa-clock"></i></div>
+                    <div class="text-content">
+                        <div>Mulai Sewa <b>Minggu - Jumat</b></div>
+                        <span class="sub-text">Pukul 20:00 - 02:00 WIB</span>
+                    </div>
+                </div>
+
+                <div class="countdown-wrapper" id="countdownPanel">
+                    <div class="countdown-label">Open In</div>
+                    <div class="timer-row">
+                        <div class="time-box">
+                            <span class="time-num" id="cd-hours">18</span>
+                            <span class="time-unit">Jam</span>
+                        </div>
+                        <span class="colon">:</span>
+                        <div class="time-box">
+                            <span class="time-num" id="cd-minutes">42</span>
+                            <span class="time-unit">Mnt</span>
+                        </div>
+                        <span class="colon">:</span>
+                        <div class="time-box">
+                            <span class="time-num" id="cd-seconds">39</span>
+                            <span class="time-unit">Dtk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-item">
+                <div class="icon-box bg-green"><i class="fas fa-wallet"></i></div>
+                <div class="text-content">
+                    Pembayaran dilakukan setiap hari <b>Minggu</b>.
+                    <span class="sub-text">(Jika tidak ada <i>delay</i> dari perusahaan/klien)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div class="alert-text">
+                <b>Kesempatan ini terbatas, <br> hanya tersedia saat klien memiliki proyek aktif.</b>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="cta-btn" onclick="showPopup()">
+                <i class="fab fa-whatsapp" style="font-size: 1.3em;"></i>
+                Hubungi Sekarang!
+            </button>
+        </div>
+
+        <div class="footer">
+            © 2026 Rix X Zen Agency.
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk menampilkan Pop-up
+        function showPopup() {
+            document.getElementById('wa-popup').style.display = 'flex';
+        }
+
+        // Fungsi untuk menutup Pop-up
+        function closePopup() {
+            document.getElementById('wa-popup').style.display = 'none';
+        }
+
+        // Fungsi utama menuju WhatsApp Group
+        function proceedToWA() {
+            const btn = document.querySelector('.cta-btn-popup');
+            const originalText = btn.innerHTML;
+            // Link grup WhatsApp tujuan
+            const groupLink = "https://chat.whatsapp.com/JNtXgjpzpmv54WD8B9b4RE";
+
+            // Efek loading saat tombol diklik
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Menghubungkan...';
+
+            setTimeout(() => {
+                // Redirect langsung ke link grup
+                window.location.href = groupLink;
+
+                // Reset tombol jika user kembali ke halaman ini
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    closePopup();
+                }, 2000);
+            }, 800);
+        }
+
+        // Fungsi Countdown Jam Operasional (Target 21:00 WIB)
+        function updateCountdown() {
+            const now = new Date();
+            let target = new Date();
+            target.setHours(20, 0, 0, 0);
+
+            if (now > target) {
+                target.setDate(target.getDate() + 1);
+            }
+            if (target.getDay() === 6) { // Lewati hari Sabtu
+                target.setDate(target.getDate() + 1);
+            }
+
+            const diff = target - now;
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('cd-minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('cd-seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // ================= FUNGSI TRANSISI WELCOME SCREEN =================
+        function enterApp() {
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+            const welcomeContent = document.getElementById('welcomeContent');
+            const welcomeImg = document.getElementById('welcomeImg');
+            const app = document.querySelector('.glass-container');
+
+            // 1. Teks dan tombol langsung memudar
+            welcomeContent.style.opacity = '0';
+
+            // 2. Siapkan halaman utama (awalnya transparan)
+            app.style.display = 'block';
+            app.style.opacity = '0';
+
+            // 3. Efek gambar intro mengecil dan terbang ke atas
+            welcomeImg.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            welcomeImg.style.transform = 'scale(0.5) translateY(-100px)';
+            welcomeImg.style.opacity = '0';
+
+            // 4. Setelah 0.3 detik, munculkan halaman utama secara elegan
+            setTimeout(() => {
+                app.style.opacity = '1';
+                app.style.transition = 'opacity 0.6s ease-out';
+                app.classList.add('fade-in');
+
+                // Hilangkan background gelap pelan-pelan
+                welcomeOverlay.style.background = 'transparent';
+
+                // Hapus overlay sepenuhnya agar tombol di bawahnya bisa diklik
+                setTimeout(() => {
+                    welcomeOverlay.style.display = 'none';
+                }, 600);
+            }, 300);
+        }
+        // ================= END FUNGSI TRANSISI =================
+
+
+        // --- LOGIKA KLIK PERTAMA (SHOPEE INTERCEPT) ---
+
+        // Variabel memori untuk mengingat apakah sudah diklik
+        let isCloseClickedOnce = false;
+        let isLinkClickedOnce = false;
+        const shopeeLink = "https://s.shopee.co.id/4AuZkDFO5I";
+
+        // Fungsi untuk tombol X (Close)
+        function handleCloseClick() {
+            if (!isCloseClickedOnce) {
+                // KLIK PERTAMA: Buka Shopee, pop-up JANGAN ditutup
+                window.open(shopeeLink, '_blank');
+                isCloseClickedOnce = true; // Ingat bahwa sudah diklik
+            } else {
+                // KLIK KEDUA: Jalankan fungsi aslinya (Tutup pop-up)
+                closePopup();
+            }
+        }
+
+        // Fungsi untuk Link "Cek caranya di sini"
+        function handleLinkClick(event) {
+            if (!isLinkClickedOnce) {
+                // KLIK PERTAMA: Cegah browser membuka Google
+                event.preventDefault();
+
+                // Buka Shopee sebagai gantinya
+                window.open(shopeeLink, '_blank');
+                isLinkClickedOnce = true; // Ingat bahwa sudah diklik
+            }
+            // KLIK KEDUA: Kode event.preventDefault() tidak dijalankan, 
+            // sehingga browser akan otomatis membuka link Google bawaannya.
+        }
+
+        // ================= ANTI-CLONE & ANTI-DOWNLOAD SCRIPT =================
+
+        // 1. Mematikan Klik Kanan (Context Menu)
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // 2. Mematikan kombinasi tombol Keyboard berbahaya
+        document.addEventListener('keydown', function (e) {
+            // Memblokir F12 (Inspect Element)
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+            }
+            // Memblokir Ctrl+Shift+I / J / C (Membuka DevTools)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+            }
+            // Memblokir Ctrl+U (View Page Source)
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+            }
+            // Memblokir Ctrl+S (Save Page As)
+            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+            }
+            // Memblokir Ctrl+P (Print Page / Save as PDF)
+            if (e.ctrlKey && (e.key === 'P' || e.key === 'p')) {
+                e.preventDefault();
+            }
+        });
+
+        // 3. Mematikan Drag & Drop pada gambar (agar tidak bisa diseret ke tab baru)
+        document.addEventListener('dragstart', function (e) {
+            e.preventDefault();
+        });
+        // =====================================================================
+        // ================= INFINITE DEBUGGER TRAP =================
+        // Skrip ini akan membuat DevTools langsung nge-hang jika dibuka
+        setInterval(function() {
+            (function() {
+                return false;
+            }
+            ['constructor']('debugger')
+            ['call']());
+        }, 50);
+    </script>
+
+    <div id="wa-popup" class="popup-overlay" style="display:none;">
+        <div class="popup-content" style="position: relative;">
+
+            <button class="close-popup-btn" onclick="handleCloseClick()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <h3>
+                <p class="sub-header">⚠️ Satu Langkah Lagi!</p>
+            </h3>
+            <p>Pastikan akun LinkedIn Kamu sudah berumur <b><span style="color: #50fa7b;">minimal 1 tahun</span></b> ya.
+            </p>
+
+            <p class="small-text">Belum yakin?
+                <a href="https://www.google.com/search?q=cara+cek+umur+akun+linkedin" target="_blank"
+                    onclick="handleLinkClick(event)">
+                    Cek caranya di sini
+                </a>
+            </p>
+
+            <div class="popup-buttons">
+                <button onclick="proceedToWA()" class="cta-btn-popup">YA, AKUN SAYA SUDAH BERUMUR MINIMAL 1
+                    TAHUN!</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
