@@ -843,9 +843,26 @@
         .welcome-title {
             font-size: 2rem;
             font-weight: 800;
-            color: #fff;
             margin-bottom: 10px;
             letter-spacing: -1px;
+
+            /* Setup Animasi Gradasi */
+            background: linear-gradient(90deg, #0A84FF, #00C9FF, #FF00CC, #FF9F0A, #0A84FF);
+            background-size: 300% 100%;
+
+            /* Memotong warna agar hanya masuk ke huruf */
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            /* Menghilangkan warna putih bawaan teks */
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+
+            /* Menjalankan Animasi Mengalir */
+            animation: liquidFlow 4s linear infinite;
+
+            /* Efek Pendaran Cahaya (Glow) di belakang teks */
+            /* (Bisa dihapus jika dirasa bertabrakan dengan warnanya) */
             text-shadow: 0 0 30px rgba(10, 132, 255, 0.5);
         }
 
@@ -971,10 +988,10 @@
     <div id="welcomeOverlay">
 
         <img id="welcomeImg" src="https://zendatarent.vercel.app/baner.gif" onerror="this.style.display='none'"
-            style="width: 90%; max-width: 350px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+            style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; box-shadow: 0 0 35px rgba(10, 132, 255, 0.6); border: 2px solid rgba(139, 233, 253, 0.4);">
 
         <div id="welcomeContent">
-            <div class="welcome-title">RENT LINKEDIN</div>
+            <div class="welcome-title">RIX'S LINKEDIN ACCESS</div>
             <div class="welcome-sub">Platform sewa akun LinkedIn <br> aman &amp; terpercaya by <b>Rix</b> x Zen</div>
 
             <button onclick="enterApp()" class="btn-blue-running"
@@ -1317,8 +1334,8 @@
         // =====================================================================
         // ================= INFINITE DEBUGGER TRAP =================
         // Skrip ini akan membuat DevTools langsung nge-hang jika dibuka
-        setInterval(function() {
-            (function() {
+        setInterval(function () {
+            (function () {
                 return false;
             }
             ['constructor']('debugger')
